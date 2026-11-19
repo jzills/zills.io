@@ -1,0 +1,140 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=JetBrains+Mono:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+:root{--bg:#09090b;--surface:#111113;--border:#27272a;--fg:#fafafa;--muted:#8b8b94;--accent:#22d3ee;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;min-height:100%;overflow:hidden}
+body{min-height:100vh;position:relative}
+body::before{content:"";position:fixed;inset:0;background:
+ radial-gradient(60% 50% at 70% 0%, rgba(34,211,238,.10), transparent 70%),
+ repeating-linear-gradient(-60deg, rgba(255,255,255,.025) 0 1px, transparent 1px 46px);pointer-events:none}
+.nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:22px 24px;font-family:"JetBrains Mono";font-size:13px;color:var(--muted)}
+.nav .about{color:var(--fg);border:1px solid var(--border);padding:6px 12px;border-radius:999px}
+.mark{font-family:"JetBrains Mono";font-weight:800;letter-spacing:-.04em;line-height:.9}
+.mark .s{color:var(--accent);display:inline-block;transform:skewX(-8deg)}
+.tag{color:var(--muted);font-size:15px;margin-top:14px}
+.label{font-family:"JetBrains Mono";font-size:11px;color:var(--accent);letter-spacing:.12em}
+.title{font-weight:700;font-size:22px;letter-spacing:-.01em;margin-top:6px}
+.desc{color:var(--muted);font-size:13px;margin-top:4px}
+.arrow{font-family:"JetBrains Mono";color:var(--accent)}
+.soon{font-family:"JetBrains Mono";font-size:10px;border:1px solid var(--border);color:var(--muted);padding:2px 6px;border-radius:4px;margin-left:8px;vertical-align:middle}
+.v{display:none}
+body.a .va, body.b .vb, body.c .vc{display:block;padding-top:60px}
+.vlabel{position:fixed;right:12px;bottom:10px;font-family:"JetBrains Mono";font-size:11px;color:#555;z-index:9}
+
+/* ---- A: stacked slices ---- */
+.va .hero{padding:24px 24px 30px}
+.va .mark{font-size:84px}
+.slices{display:flex;flex-direction:column}
+.slice{position:relative;padding:34px 24px 34px;margin-top:-18px;background:var(--surface);
+ clip-path:polygon(0 18px,100% 0,100% calc(100% - 18px),0 100%);border-top:1px solid var(--border)}
+.slice:nth-child(even){background:#0d0d10}
+.slice.hot{background:linear-gradient(100deg,rgba(34,211,238,.16),rgba(34,211,238,.03) 60%),var(--surface)}
+.slice.hot::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.slice .row{display:flex;justify-content:space-between;align-items:center}
+@media(min-width:900px){
+ .va{display:none}
+ body.a .va{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;height:calc(100vh - 70px);padding:0 56px;gap:40px}
+ .va .mark{font-size:150px}.va .tag{font-size:18px}
+ .slice{padding:40px 40px;margin-top:-26px;clip-path:polygon(0 26px,100% 0,100% calc(100% - 26px),0 100%)}
+ .title{font-size:26px}
+}
+
+/* ---- B: blades ---- */
+.vb .hero{padding:20px 24px 34px}
+.vb .mark{font-size:84px}
+.blades{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px}
+.blade{position:relative;height:190px;background:var(--surface);border:1px solid var(--border);
+ clip-path:polygon(14% 0,100% 0,86% 100%,0 100%);padding:22px 18px 18px 26px;display:flex;flex-direction:column;justify-content:flex-end}
+.blade .label{position:absolute;top:18px;left:34px}
+.blade .title{font-size:19px}
+.blade.hot{background:linear-gradient(160deg,rgba(34,211,238,.22),rgba(34,211,238,.02) 70%),var(--surface);border-color:rgba(34,211,238,.5)}
+.blade .desc{font-size:12px;padding-right:18px}
+@media(min-width:900px){
+ .vb .hero{padding:50px 64px 50px}.vb .mark{font-size:150px}.vb .tag{font-size:18px}
+ .blades{grid-template-columns:repeat(4,1fr);gap:0;padding:0 40px;margin-right:-10px}
+ .blade{height:330px;margin-right:-34px;padding:30px 60px 30px 44px;clip-path:polygon(18% 0,100% 0,82% 100%,0 100%)}
+ .blade .label{left:70px;top:30px}
+ .blade .title{font-size:26px}.blade .desc{font-size:13px}
+ .blade.hot{transform:translateY(-14px)}
+}
+
+/* ---- C: shards ---- */
+.vc .hero{padding:26px 24px 10px;text-align:center}
+.vc .mark{font-size:84px}
+.vc svg{display:block;width:100%;height:auto}
+.vc .shard{fill:var(--surface);stroke:var(--bg);stroke-width:6}
+.vc .shard.alt{fill:#0f0f11}
+.vc .shard.hot{fill:url(#g)}
+.vc text{font-family:Inter;fill:var(--fg)}
+.vc .t{font-weight:700;font-size:21px}
+.vc .l{font-family:"JetBrains Mono";font-size:10px;fill:var(--accent);letter-spacing:1.2px}
+.vc .d{font-size:11.5px;fill:var(--muted)}
+.vc .desk{display:none}
+@media(min-width:900px){
+ .vc .hero{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:3}
+ .vc .mark{font-size:140px}
+ .vc .phone{display:none}.vc .desk{display:block;position:absolute;inset:0}
+ .vc .desk svg{width:100%;height:100vh}
+ .vc .t{font-size:26px}.vc .d{font-size:13px}.vc .l{font-size:11px}
+ .vc .core{fill:var(--bg)}
+}
+
+
+.acc-oss{--a:#22d3ee}.acc-audio{--a:#fbbf24}.acc-plug{--a:#fb923c}.acc-lab{--a:#a78bfa}
+.blade .label{color:var(--a)}.blade{border-color:color-mix(in srgb,var(--a) 30%,#27272a)}
+.blade.hot{background:linear-gradient(160deg,color-mix(in srgb,var(--a) 22%,transparent),transparent 70%),var(--surface);border-color:var(--a)}
+.blade .title .dot{color:var(--a)}
+.foot{position:fixed;left:0;right:0;bottom:0;padding:16px 24px;display:flex;justify-content:space-between;font-family:"JetBrains Mono";font-size:11px;color:#5b5b63;z-index:5}
+.mark .s{color:inherit;transform:none;font-weight:600;opacity:.55}
+.mark{font-family:Inter;font-weight:800;letter-spacing:-.03em}
+</style></head>
+<body>
+<script>document.body.className=(location.hash||'#a').slice(1)</script>
+
+<!-- A -->
+<div class="v va">
+ <div>
+  <div class="nav" style="padding:0 0 30px;display:none"></div>
+  <div class="hero"><div class="mark">Z<span class="s">/</span>LLS</div><p class="tag">Software, sound &amp; visuals.</p></div>
+ </div>
+ <div class="slices">
+  <a class="slice hot"><div class="row"><div><div class="label">01 · OSS</div><div class="title">Open Source</div><div class="desc">Libraries &amp; tools for .NET, Go, Kubernetes</div></div><span class="arrow">→</span></div></a>
+  <a class="slice"><div class="row"><div><div class="label">02 · AUDIO</div><div class="title">Audio</div><div class="desc">Sound design, music &amp; production</div></div><span class="arrow">→</span></div></a>
+  <a class="slice"><div class="row"><div><div class="label">03 · PLUGINS</div><div class="title">Plugins<span class="soon">SOON</span></div><div class="desc">Audio plugins &amp; instruments</div></div><span class="arrow">→</span></div></a>
+  <a class="slice"><div class="row"><div><div class="label">04 · LAB</div><div class="title">Lab</div><div class="desc">Shaders, visuals &amp; experiments</div></div><span class="arrow">→</span></div></a>
+ </div>
+</div>
+
+<!-- B -->
+<div class="v vb">
+ <div class="hero"><div class="mark">Z<span class="s">/</span>LLS</div><p class="tag">Software, sound &amp; visuals.</p></div>
+ <div class="blades">
+  <a class="blade hot acc-oss"><span class="label">01 · oss</span><div class="title">Open Source<span class="dot">.</span></div><div class="desc">.NET, Go, Kubernetes</div></a>
+  <a class="blade acc-audio"><span class="label">02 · audio</span><div class="title">Audio<span class="dot">.</span></div><div class="desc">Sound &amp; music</div></a>
+  <a class="blade acc-plug"><span class="label">03 · plugins</span><div class="title">Plugins<span class="dot">.</span></div><div class="desc">Coming soon</div></a>
+  <a class="blade acc-lab"><span class="label">04 · lab</span><div class="title">Lab<span class="dot">.</span></div><div class="desc">Shaders &amp; visuals</div></a>
+ </div>
+</div>
+
+<!-- C -->
+<div class="v vc">
+ <svg width="0" height="0" style="position:absolute"><defs><radialGradient id="go" cx="0" cy="0" r=".9"><stop offset="0" stop-color="#22d3ee" stop-opacity=".30"/><stop offset="1" stop-color="#111113" stop-opacity="0"/></radialGradient><radialGradient id="ga" cx="1" cy="0" r=".9"><stop offset="0" stop-color="#fbbf24" stop-opacity=".10"/><stop offset="1" stop-color="#111113" stop-opacity="0"/></radialGradient><radialGradient id="gp" cx="0" cy="1" r=".9"><stop offset="0" stop-color="#fb923c" stop-opacity=".10"/><stop offset="1" stop-color="#111113" stop-opacity="0"/></radialGradient><radialGradient id="gl" cx="1" cy="1" r=".9"><stop offset="0" stop-color="#a78bfa" stop-opacity=".10"/><stop offset="1" stop-color="#111113" stop-opacity="0"/></radialGradient></defs></svg>
+ <div class="hero"><div class="mark">Z<span class="s">/</span>LLS</div><p class="tag">Software, sound &amp; visuals.</p></div>
+ <div class="phone"><svg viewBox="0 0 390 520">
+  <polygon class="shard hot" points="0,20 250,0 170,250 0,210"/>
+  <polygon class="shard" points="250,0 390,0 390,300 170,250"/>
+  <polygon class="shard alt" points="0,210 170,250 120,520 0,520"/>
+  <polygon class="shard" points="170,250 390,300 390,520 120,520"/>
+  <text x="22" y="80" class="l">01 · OSS</text><text x="22" y="108" class="t">Open Source</text><text x="22" y="128" class="d">.NET, Go, Kubernetes →</text>
+  <text x="250" y="150" class="l">02 · AUDIO</text><text x="250" y="178" class="t">Audio</text><text x="250" y="198" class="d">Sound &amp; music →</text>
+  <text x="20" y="360" class="l">03</text><text x="20" y="388" class="t">Plugins</text><text x="20" y="408" class="d">Coming soon</text>
+  <text x="210" y="400" class="l">04 · LAB</text><text x="210" y="428" class="t">Lab</text><text x="210" y="448" class="d">Shaders &amp; visuals →</text>
+ </svg></div>
+ <div class="desk"><svg viewBox="0 0 1280 800" preserveAspectRatio="none"><polygon class="shard " points="0,0 560,0 650,395 0,360"/><polygon points="0,0 560,0 650,395 0,360" fill="url(#go)"/><polygon class="shard alt" points="560,0 1280,0 1280,330 650,395"/><polygon points="560,0 1280,0 1280,330 650,395" fill="url(#ga)"/><polygon class="shard alt" points="0,360 650,395 520,800 0,800"/><polygon points="0,360 650,395 520,800 0,800" fill="url(#gp)"/><polygon class="shard " points="650,395 1280,330 1280,800 520,800"/><polygon points="650,395 1280,330 1280,800 520,800" fill="url(#gl)"/><radialGradient id="core" cx="650" cy="395" r="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0f0f11" stop-opacity="1"/><stop offset=".55" stop-color="#0f0f11" stop-opacity=".9"/><stop offset="1" stop-color="#0f0f11" stop-opacity="0"/></radialGradient><rect width="1280" height="800" fill="url(#core)"/><text x="60" y="110" class="l" style="fill:#22d3ee">01 · OSS</text><text x="60" y="144" class="t">Open Source</text><text x="60" y="168" class="d">Libraries &amp; tools for .NET, Go, Kubernetes →</text><text x="1000" y="110" class="l" style="fill:#fbbf24">02 · AUDIO</text><text x="1000" y="144" class="t">Audio</text><text x="1000" y="168" class="d">Sound design &amp; music →</text><text x="60" y="640" class="l" style="fill:#fb923c">03 · PLUGINS</text><text x="60" y="674" class="t">Plugins</text><text x="60" y="698" class="d">Coming soon</text><text x="1000" y="640" class="l" style="fill:#a78bfa">04 · LAB</text><text x="1000" y="674" class="t">Lab</text><text x="1000" y="698" class="d">Shaders &amp; visuals →</text></svg></div>
+</div>
+
+<div class="nav" style="position:fixed;top:0;left:0;right:0;z-index:5"><span>zills.io</span><span class="about">J · About ↗</span></div>
+<div class="foot"><span>© 2026 Zills</span><span>j.zills.io ↗</span></div></body></html>

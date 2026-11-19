@@ -12,14 +12,14 @@
 
 ## Global Constraints
 
-- Palette tokens (Tailwind `@theme`): bg `#09090b`, surface `#111113`, border `#27272a`, fg `#fafafa`, muted `#8b8b94`, accent `#22d3ee`. Fonts: Inter (sans), JetBrains Mono (mono), from Google Fonts.
+- Palette tokens (Tailwind `@theme`): bg `#09090b`, surface `#111113`, border `#27272a`, fg `#fafafa`, muted `#8b8b94`, accent `#22d3ee`. Per-panel accents: oss `#22d3ee`, audio `#fbbf24`, plugins `#fb923c`, lab `#a78bfa`, applied as a `--a` custom property on each panel. Fonts: Inter (sans), JetBrains Mono (mono), from Google Fonts.
 - Dark only. No theme toggle.
 - Layout switch at 900px: define `--breakpoint-shards: 56.25rem` in `@theme` and use the `shards:` variant. Below it is the blades layout, at and above it the shards layout.
-- Logo placeholder text is exactly `Z/LLS`, in plain heavy type. No skew, no accent colour on the slash.
+- Logo placeholder text is exactly `Z/LLS`: Inter 800, tight tracking, the slash at weight 600 in fg at 55% opacity. No skew, no accent colour on the slash. Under it, the line `Software, sound & visuals.` in muted.
 - Links: About is `https://j.zills.io/`, Open Source is `https://github.com/jzills`, Lab is `https://j.zills.io/lab/`. Audio and Plugins have no link.
 - Motion: the entrance plays once (≈400ms total stagger), nothing loops, and everything is disabled under `prefers-reduced-motion: reduce`.
 - Text is real HTML, never SVG `<text>`. Shapes are decoration (`aria-hidden`).
-- Deviation from the spec: no framer-motion. CSS covers every motion the spec lists, and keeping it out means the prerendered HTML is never hidden while waiting for JS. Flag this to the user.
+- No framer-motion. CSS covers every motion the spec lists, and keeping it out means the prerendered HTML is never hidden while waiting for JS.
 
 ## Review Focus
 
@@ -54,12 +54,13 @@
 - Test: `src/data/panels.test.ts`
 
 **Interfaces:**
-- Produces: `type Panel = { id: 'oss' | 'audio' | 'plugins' | 'lab'; label: string; title: string; description: string; href?: string }`, `panels: Panel[]`, and `ABOUT_URL = 'https://j.zills.io/'`.
+- Produces: `type Panel = { id: 'oss' | 'audio' | 'plugins' | 'lab'; label: string; title: string; description: string; accent: string; href?: string }`, `panels: Panel[]`, and `ABOUT_URL = 'https://j.zills.io/'`.
 
 - [ ] **Step 1: Write the failing test.** It asserts:
   - `panels.map(p => p.id)` equals `['oss','audio','plugins','lab']`.
   - The labels equal `['01 · OSS','02 · AUDIO','03 · PLUGINS','04 · LAB']`.
   - Every title and description is non-empty.
+  - The accents equal `['#22d3ee','#fbbf24','#fb923c','#a78bfa']`.
   - Every `href` that is present matches `/^https:\/\//`.
   - `panels.find(p=>p.id==='oss')?.href === 'https://github.com/jzills'` and `lab` is `'https://j.zills.io/lab/'`.
   - `audio` and `plugins` have `href === undefined`.
@@ -76,28 +77,28 @@
 
 **Interfaces:**
 - Consumes: `Panel` (Task 2).
-- Produces: `PanelLink(props: { panel: Panel; className?: string; style?: CSSProperties; children?: ReactNode }): JSX.Element`. This is the interactive wrapper, used by both layouts and given their shape via `className`. With an `href` it renders `<a href target="_self">` with class `group` and focus-visible ring styles. Without one it renders a `<div>` (not focusable) with a "Coming soon" tag. Inside, it shows the label (mono, accent), the title, the description, and a `→` for links only.
+- Produces: `PanelLink(props: { panel: Panel; className?: string; style?: CSSProperties; children?: ReactNode }): JSX.Element`. This is the interactive wrapper, used by both layouts and given their shape via `className`. With an `href` it renders `<a href target="_self">` with class `group` and focus-visible ring styles. Without one it renders a `<div>` (not focusable) with a "Coming soon" tag. It sets `--a: panel.accent` in its style. Inside, it shows the label (mono, in `--a`), the title followed by a `.` in `--a`, the description, and a `→` for links only.
 
 - [ ] **Step 1: Write the failing tests:**
   - `links when href present`: the output contains `<a` and `href="https://github.com/jzills"`, and doesn't contain `Coming soon`.
   - `no link when href absent`: the audio panel's output contains no `<a`, no `tabindex`, and does contain `Coming soon`.
 - [ ] **Step 2:** Run it. Expected: FAIL.
-- [ ] **Step 3:** Implement. The hover/focus state (`group-hover`, `group-focus-visible`) is an accent wash, a thin accent edge and the arrow moving 4px. Apply hover styles only under `@media (hover: hover)`, using Tailwind's `hover:` (v4 already scopes `hover:` to hover-capable devices).
+- [ ] **Step 3:** Implement. The hover/focus state (`group-hover`, `group-focus-visible`) is a wash and a thin edge in `--a`, plus the arrow moving 4px. Apply hover styles only under `@media (hover: hover)`, using Tailwind's `hover:` (v4 already scopes `hover:` to hover-capable devices).
 - [ ] **Step 4:** Run it. Expected: PASS.
 - [ ] **Step 5: Commit** `feat: panel link component`
 
 ### Task 4: Page layout (blades and shards)
 
 **Files:**
-- Create: `src/components/TopBar.tsx`, `src/components/Blades.tsx`, `src/components/Shards.tsx`
+- Create: `src/components/TopBar.tsx`, `src/components/Footer.tsx`, `src/components/Blades.tsx`, `src/components/Shards.tsx`
 - Modify: `src/App.tsx`, `src/index.css`
 - Test: `src/App.test.tsx`
 
 **Interfaces:**
 - Consumes: `Logo`, `PanelLink`, `panels`, `ABOUT_URL`.
-- Produces: `Blades({ panels })`, which is visible below `shards:` (`shards:hidden`), and `Shards({ panels })`, which is hidden below `shards:` (`hidden shards:block`). `App` renders `TopBar`, `Logo`, `Blades` and `Shards`.
+- Produces: `Blades({ panels })`, which is visible below `shards:` (`shards:hidden`), and `Shards({ panels })`, which is hidden below `shards:` (`hidden shards:block`). `App` renders `TopBar`, `Logo`, `Blades`, `Shards` and `Footer` (`© 2026 Zills` at left, `j.zills.io ↗` linking to `ABOUT_URL` at right, small mono, muted).
 
-Shard geometry: copy the desktop polygons from the approved mockup (`mock/index.html#c`, viewBox 1280×800), expressed as `clip-path: polygon(...)` percentages on four absolutely positioned `PanelLink`s that fill the viewport (`100dvh`, min-height 600px). Order: OSS top-left, Audio top-right, Plugins bottom-left, Lab bottom-right. The centre core stays bg colour, with the logo centred over it. Text sits in each panel's outer corner. Seams are 6px gaps of bg colour. Blades are a 2×2 grid of parallelograms (`clip-path: polygon(14% 0,100% 0,86% 100%,0 100%)`), 190px tall, 10px gap, under the logo. The background has a faint diagonal hairline texture and a soft cyan radial glow, as in the mockup.
+Shard geometry, on a 1280×800 reference expressed as `clip-path: polygon(...)` percentages, with C = (650, 395): OSS `0,0 560,0 C 0,360`; Audio `560,0 1280,0 1280,330 C`; Plugins `0,360 C 520,800 0,800`; Lab `C 1280,330 1280,800 520,800`. They go on four absolutely positioned `PanelLink`s that fill the viewport (`100dvh`, min-height 600px). OSS and Lab use surface `#111113`, Audio and Plugins `#0f0f11`. Each has a radial glow of its `--a` (≈ 10% opacity, 30% for the hovered one) in its outer corner. A non-interactive overlay (`pointer-events: none`) above the panels paints a radial gradient of `#0f0f11`, solid to ≈ 55% of a 330px radius and then fading out, centred on C, so the seams and panels merge into one colour under the logo. The logo is centred over C. Text sits in each panel's outer corner. Seams are 6px gaps of bg colour. Blades are a 2×2 grid of parallelograms (`clip-path: polygon(14% 0,100% 0,86% 100%,0 100%)`), 190px tall, 10px gap, under the logo. The background has a faint diagonal hairline texture and a soft cyan radial glow, as in the mockup.
 
 The entrance is a CSS keyframe (fade and translate 8px, 300ms) on each panel, with `animation-delay` of 0/40/80/120ms via a `--i` custom property, wrapped in `@media (prefers-reduced-motion: no-preference)`. `animation-fill-mode: backwards`, so a missing animation leaves the panel fully visible.
 

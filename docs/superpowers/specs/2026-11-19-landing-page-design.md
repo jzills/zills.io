@@ -25,19 +25,22 @@ zills.io is the brand's front door, facing clients. It should feel polished, bol
 ## Approaches considered
 
 1. **Plain HTML and CSS, no build step.** Smallest, but shares no tooling with the existing site and makes anything interactive later hand-rolled.
-2. **Same stack as jzills.github.io: Vite, React, TypeScript, Tailwind v4 and framer-motion, prerendered and deployed to GitHub Pages.** *Chosen.* The user already maintains this stack and its deploy workflow, framer-motion makes the polish cheap, and prerendering keeps it fast static HTML.
+2. **Same stack as jzills.github.io: Vite, React, TypeScript and Tailwind v4, prerendered and deployed to GitHub Pages.** *Chosen.* The user already maintains this stack and its deploy workflow, and prerendering keeps it fast static HTML. (framer-motion was planned at first and dropped; see Build and deploy.)
 3. **Astro.** Good for many pages, but zills.io stays one page (sections live on subdomains), so it buys a new tool for no gain.
 
 ## Layout (decided: mockups B and C combined)
 
-- **Desktop (≥ 900px), "Shards" (C):** the full viewport is split into four triangulated panels, one per section, with the logo centred in a dark core shape where they meet. Panels are separated by thin seams of background colour. Each panel carries a small mono label (`01 · OSS`), a title and a one-line description, placed in its outer corner.
-- **Phone, "Blades" (B):** the logo on top, then a 2×2 grid of slanted parallelogram cards (number label, title, short description).
+- **Desktop (≥ 900px), "Shards" (C):** the full viewport is split into four triangulated panels, one per section, meeting at a single point slightly right of centre (≈ 650,395 on a 1280×800 canvas). There is no core tile: near the centre the panels and their seams fade into one shared surface colour, and the logo sits on top of that. Panels are separated by thin seams of background colour. Each panel carries a small mono label (`01 · OSS`), a title and a one-line description, placed in its outer corner, and a faint glow of its site's accent in that corner.
+- **Phone, "Blades" (B):** the logo on top, then a 2×2 grid of slanted parallelogram cards (number label, title with an accent dot, short description), each with a thin border in its site's accent.
+- **Under the logo:** the line "Software, sound & visuals." in muted text.
+- **Footer, both sizes:** `© 2026 Zills` at left and `j.zills.io ↗` at right, small mono, muted.
+- **Accent per site** (the brand family's bright set): Open Source `#22d3ee`, Audio `#fbbf24`, Plugins `#fb923c`, Lab `#a78bfa`. Used for the panel label, the title's dot, the corner glow, and the hover wash and edge.
 - **Top bar, both sizes:** `zills.io` at left, and a pill link `J · About ↗` at right pointing to `https://j.zills.io/`.
-- Dark only (Claude's call: it's a brand page with one fixed look, and a theme toggle would add clutter). Palette from jzills.github.io: bg `#09090b`, surface `#111113`, border `#27272a`, fg `#fafafa`, muted `#8b8b94`, accent `#22d3ee`. Fonts: Inter, JetBrains Mono. Faint diagonal hairline texture and a soft cyan glow in the background.
+- Dark only (Claude's call: it's a brand page with one fixed look, and a theme toggle would add clutter). Palette from jzills.github.io: bg `#09090b`, surface `#111113`, border `#27272a`, fg `#fafafa`, muted `#8b8b94`, accent `#22d3ee`. Fonts: Inter, JetBrains Mono. Faint diagonal hairline texture and a soft cyan glow at the top of the background.
 
 ## Logo
 
-Placeholder: **Z/LLS** set in clean, heavy type, the slash an ordinary character. No skew, no colour accent (both read as gimmicky). It lives in one component so a designed mark can replace it without touching the layout. The logo will be revisited later.
+Placeholder: **Z/LLS** in Inter at weight 800, tight tracking, with the slash at weight 600 in muted grey (fg at ≈ 55% opacity). No skew, no colour accent (both read as gimmicky). It lives in one component so a designed mark can replace it without touching the layout. The logo will be revisited later.
 
 ## Panels
 
@@ -55,7 +58,7 @@ A panel without an `href` renders as a non-link with a "Coming soon" tag and no 
 ## Motion
 
 - On load, panels appear once in a short stagger (≈ 400ms total), then the page is still.
-- On hover or keyboard focus (tap on phone), a panel brightens with a cyan wash and a thin accent edge, and its arrow nudges.
+- On hover or keyboard focus (tap on phone), a panel brightens with a wash and a thin edge in its own accent, and its arrow nudges.
 - Desktop only: a faint highlight that follows the cursor within the hovered panel.
 - Nothing loops. With `prefers-reduced-motion`, all motion is off and states change instantly.
 
@@ -67,11 +70,11 @@ A panel without an `href` renders as a non-link with a "Coming soon" tag and no 
 
 ## Build and deploy
 
-- Vite, React 19, TypeScript, Tailwind v4, framer-motion, mirroring jzills.github.io's config and versions.
+- Vite, React 19, TypeScript and Tailwind v4, mirroring jzills.github.io's config and versions. No framer-motion: CSS covers every motion above, and it keeps the prerendered page visible without JavaScript.
 - Prerendered to static HTML. The page is simple enough that a single prerender step suffices.
 - GitHub Actions on push to `main`: install, test, build, deploy `dist/` to GitHub Pages, with a `CNAME` for `zills.io`. DNS is the user's to set up.
 - Tests (Vitest): panels data is valid (every panel has a title and description, hrefs are absolute URLs), and panels without an href render as non-links.
 
 ## Left to the builder
 
-Exact shard geometry, seam width, type sizes, the breakpoint fine-tuning, and the OG image design. They should match the approved mockups (scratchpad `mock/index.html` #b and #c).
+Exact shard geometry, seam width, type sizes, the breakpoint fine-tuning, and the OG image design. They should match the approved mockups in `docs/superpowers/specs/mockups/` (phone blades and desktop shards).
