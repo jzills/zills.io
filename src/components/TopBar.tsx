@@ -6,9 +6,10 @@ export function TopBar() {
       <span>zills.io</span>
       <a
         href={ABOUT_URL}
+        title="j.zills.io"
         className="rounded-full border border-border px-3 py-1.5 text-fg transition-colors hover:border-accent/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
-        J · About <span aria-hidden="true">↗</span>
+        Me <span aria-hidden="true">↗</span>
       </a>
     </header>
   )

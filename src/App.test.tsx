@@ -25,6 +25,6 @@ describe('App', () => {
   })
 
   it('footer', () => {
-    expect(html).toContain('© 2026 Zills')
+    expect(html).toContain('© 2026 Z/LLS')
   })
 })
