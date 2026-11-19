@@ -16,15 +16,15 @@ type Props = {
 // unfocusable block marked "Coming soon".
 export function PanelLink({ panel, className = '', style, children }: Props) {
   const live = panel.href !== undefined
-  const cls = `group relative isolate block outline-none ${className}`
+  const cls = `group isolate outline-none ${className}`
   const vars = { '--a': panel.accent, ...style } as CSSProperties
 
   const content = (
     <>
       {children}
-      <span className="relative block">
+      <span className="panel-text relative block">
         <span className="block font-mono text-[11px] tracking-[0.12em] text-(--a)">{panel.label}</span>
-        <span className="mt-1.5 block text-[22px] font-bold tracking-tight text-fg shards:text-[26px]">
+        <span className="panel-title mt-1.5 block text-[22px] font-bold tracking-tight text-fg shards:text-[26px]">
           <span className="decoration-(--a) decoration-2 underline-offset-4 group-focus-visible:underline">
             {panel.title}
           </span>

@@ -4,7 +4,7 @@ export function Logo({ className = '' }: { className?: string }) {
     <div className={className}>
       <h1
         aria-label="Zills"
-        className="font-sans font-extrabold tracking-[-0.03em] leading-[0.9] text-fg text-[5.25rem] shards:text-[8.75rem]"
+        className="font-sans font-extrabold tracking-[-0.03em] leading-[0.9] text-fg text-[5.25rem] shards:text-[clamp(6rem,17.5vh,8.75rem)]"
       >
         Z<span className="font-semibold text-fg/55">/</span>LLS
       </h1>

@@ -27,3 +27,87 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+/* Faint diagonal hairlines and a soft cyan glow at the top. */
+.texture::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 70% 0%, rgb(34 211 238 / 0.1), transparent 70%),
+    repeating-linear-gradient(-60deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 46px);
+}
+
+/* Entrance: once, on load, from the prerendered HTML. `backwards` means a panel whose
+   animation never runs is simply visible. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  .panel-in {
+    animation: panel-in 300ms ease-out backwards;
+    animation-delay: calc(var(--i, 0) * 40ms);
+  }
+}
+
+/* Phone blades: slanted cards with a thin accent top edge. */
+.blade {
+  min-height: 190px;
+  padding: 22px 16% 18px 26px;
+  background: var(--color-surface);
+  border-top: 2px solid color-mix(in srgb, var(--a) 35%, transparent);
+  clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
+  transition: border-color 200ms;
+}
+.blade > .panel-text {
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
+}
+.blade .panel-title {
+  margin-top: auto;
+  font-size: 19px;
+}
+.blade:is(a:hover, a:focus-visible) {
+  border-top-color: var(--a);
+}
+.blade-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--a) 22%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 200ms;
+}
+a.blade:is(:hover, :focus-visible) .blade-wash {
+  opacity: 1;
+}
+
+/* Desktop shards: a faint corner glow in the site's accent, brighter on hover or focus. */
+.shard-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--glow-at), color-mix(in srgb, var(--a) 10%, transparent), transparent 55%);
+}
+.shard-glow-hot {
+  background: radial-gradient(circle at var(--glow-at), color-mix(in srgb, var(--a) 30%, transparent), transparent 65%);
+  opacity: 0;
+  transition: opacity 250ms;
+}
+a.shard:is(:hover, :focus-visible) .shard-glow-hot {
+  opacity: 1;
+}
+.shard-core {
+  background: radial-gradient(330px circle at 50.78% 49.38%, var(--color-surface-alt) 0%, rgb(15 15 17 / 0.9) 55%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blade,
+  .blade-wash,
+  .shard-glow-hot {
+    transition: none;
+  }
+}
