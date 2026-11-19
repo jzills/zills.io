@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import type { Panel } from '@/data/panels'
 import { PanelLink } from '@/components/PanelContent'
+import { useCursorGlow } from '@/lib/useCursorGlow'
 
 // Desktop: the viewport split into four shards meeting at C. Coordinates are
 // percentages of a 1280×800 reference, with C at (650, 395).
@@ -33,6 +34,7 @@ function Seams() {
 }
 
 export function Shards({ panels }: { panels: Panel[] }) {
+  const glow = useCursorGlow()
   return (
     <nav aria-label="Sections" className="relative hidden h-dvh min-h-[600px] overflow-hidden shards:block">
       {panels.map((panel, i) => {
@@ -42,6 +44,7 @@ export function Shards({ panels }: { panels: Panel[] }) {
             key={panel.id}
             panel={panel}
             className={`shard panel-in absolute inset-0 flex px-[4.7%] py-[12.5%] ${s.place}`}
+            onPointerMove={panel.href ? glow.onPointerMove : undefined}
             style={{ '--i': i, '--glow-at': s.glow, clipPath: `polygon(${s.clip})`, background: s.fill } as CSSProperties}
           >
             <span aria-hidden="true" className="shard-glow" />
@@ -49,6 +52,7 @@ export function Shards({ panels }: { panels: Panel[] }) {
             <Seams />
             {/* Every shard fills the viewport before clipping, so these line up across all four. */}
             <span aria-hidden="true" className="shard-core absolute inset-0" />
+            <span aria-hidden="true" className="shard-cursor" />
           </PanelLink>
         )
       })}

@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { CSSProperties, PointerEvent, ReactNode } from 'react'
 import type { Panel } from '@/data/panels'
 
 type Props = {
@@ -10,11 +10,12 @@ type Props = {
   // light up with `group-hover:` and `group-focus-visible:`, so keyboard focus shows
   // exactly what hover does: the panels are clipped shapes, which would clip an outline.
   children?: ReactNode
+  onPointerMove?: (e: PointerEvent<HTMLElement>) => void
 }
 
 // One section of zills.io. A panel with an href is a link; one without is a plain,
 // unfocusable block marked "Coming soon".
-export function PanelLink({ panel, className = '', style, children }: Props) {
+export function PanelLink({ panel, className = '', style, children, onPointerMove }: Props) {
   const live = panel.href !== undefined
   const cls = `group isolate outline-none ${className}`
   const vars = { '--a': panel.accent, ...style } as CSSProperties
@@ -51,7 +52,7 @@ export function PanelLink({ panel, className = '', style, children }: Props) {
   )
 
   return live ? (
-    <a href={panel.href} target="_self" className={cls} style={vars}>
+    <a href={panel.href} target="_self" className={cls} style={vars} onPointerMove={onPointerMove}>
       {content}
     </a>
   ) : (

@@ -111,3 +111,23 @@ a.shard:is(:hover, :focus-visible) .shard-glow-hot {
     transition: none;
   }
 }
+
+/* Desktop: a faint light that follows the cursor across a hovered shard. Only for real
+   pointers (tablets get no stuck glow) and only when motion is welcome. --gx/--gy come
+   from src/lib/useCursorGlow.ts. */
+.shard-cursor {
+  display: none;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .shard-cursor {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(240px circle at var(--gx, -999px) var(--gy, -999px), color-mix(in srgb, var(--a) 10%, transparent), transparent 100%);
+    opacity: 0;
+    transition: opacity 250ms;
+  }
+  a.shard:hover .shard-cursor {
+    opacity: 1;
+  }
+}
