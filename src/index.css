@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #09090b;
+  --color-surface: #111113;
+  --color-surface-alt: #0f0f11;
+  --color-border: #27272a;
+  --color-fg: #fafafa;
+  --color-muted: #8b8b94;
+  --color-accent: #22d3ee;
+
+  /* Below this the page shows the blades layout, at and above it the shards. */
+  --breakpoint-shards: 56.25rem;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
