@@ -2,6 +2,7 @@ import { Logo } from '@/components/Logo'
 import { Band } from '@/components/Band'
 import { AudioPreview, CodePreview, LabPreview, PluginsPreview } from '@/components/Previews'
 import { Footer } from '@/components/Footer'
+import { HeroLight } from '@/components/HeroLight'
 import { panels } from '@/data/panels'
 
 const previews = { lab: LabPreview, oss: CodePreview, audio: AudioPreview, plugins: PluginsPreview }
@@ -11,7 +12,9 @@ export default function App() {
     <div className="texture relative min-h-dvh">
       <main className="relative">
         {/* No header: the wordmark is the first thing on the page. */}
-        <section className="hero-glow flex min-h-[88svh] flex-col items-center justify-center px-5 py-16 text-center">
+        <section className="hero-glow relative isolate flex min-h-[88svh] flex-col items-center justify-center overflow-hidden px-5 py-16 text-center">
+          {/* A dim light wandering the dark: where it passes it brings up the grain (the noise) and the beads on the glass. */}
+          <HeroLight />
           <Logo />
           {/* Breaks after "between" on small screens, so no word is left alone on a line. */}
           <p className="mt-5 text-lg text-zinc-400 sm:text-xl">
