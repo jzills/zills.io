@@ -1,7 +1,7 @@
 import { ABOUT_URL } from '@/data/panels'
 
 // Every zills site's footer: the Z/LLS mark beside a link elsewhere in the family
-// (on the hub, the resume), with the copyright under them.
+// (on the hub, the resume).
 export function Footer() {
   return (
     <footer className="relative z-20 px-6 py-6 font-mono text-[11px] text-muted shards:absolute shards:inset-x-0 shards:bottom-0">
@@ -15,7 +15,6 @@ export function Footer() {
             j.zills.io <span aria-hidden="true">↗</span>
           </a>
         </div>
-        <span>© {__BUILD_YEAR__} Joshua Zillwood</span>
       </div>
     </footer>
   )
