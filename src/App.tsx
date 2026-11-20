@@ -13,7 +13,10 @@ export default function App() {
         {/* No header: the wordmark is the first thing on the page. */}
         <section className="hero-glow flex min-h-[88svh] flex-col items-center justify-center px-5 py-16 text-center">
           <Logo />
-          <p className="mt-5 text-lg text-zinc-400 sm:text-xl">Somewhere between the signal and the noise.</p>
+          {/* Breaks after "between" on small screens, so no word is left alone on a line. */}
+          <p className="mt-5 text-lg text-zinc-400 sm:text-xl">
+            Somewhere between<br className="sm:hidden" /> the signal and the noise.
+          </p>
           {/* A plain link to the first band: works without JavaScript; smooth unless motion is reduced (index.css). */}
           <a
             href={`#${panels[0].id}`}

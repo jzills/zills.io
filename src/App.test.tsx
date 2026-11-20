@@ -66,4 +66,8 @@ describe('zills.io', () => {
     expect(html).toMatch(/<a[^>]*href="#lab"[^>]*>[\s\S]*?Scroll[\s\S]*?↓[\s\S]*?<\/a>/i)
     expect(bands[0]).toMatch(/^<section[^>]*id="lab"/)
   })
+
+  it('breaks the hero line deliberately on small screens, after "between"', () => {
+    expect(html).toMatch(/Somewhere between<br class="[^"]*sm:hidden[^"]*"\/?> ?the signal and the noise\./)
+  })
 })
