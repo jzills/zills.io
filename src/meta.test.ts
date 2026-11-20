@@ -6,7 +6,9 @@ const publicFiles = Object.keys(import.meta.glob('../public/*', { query: '?url' 
 
 describe('page head', () => {
   it('has the title, description and canonical URL', () => {
-    expect(html).toContain('<title>Z/LLS — Software, Audio &amp; Visual Lab</title>')
+    expect(html).toContain('<title>Z/LLS — Somewhere between the signal and the noise</title>')
+    expect(html).toContain('<meta property="og:title" content="Z/LLS — Somewhere between the signal and the noise" />')
+    expect(html).not.toContain('Visual Lab')
     expect(html).toMatch(/<meta name="description" content="[^"]+"/)
     expect(html).toContain('<link rel="canonical" href="https://zills.io/" />')
   })

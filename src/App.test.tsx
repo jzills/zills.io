@@ -8,9 +8,10 @@ const text = html.replace(/<!-- -->/g, '').replace(/<[^>]+>/g, ' ').replace(/\s+
 const bands = html.match(/<section[^>]*data-band="[^"]+"[\s\S]*?<\/section>/g) ?? []
 
 describe('zills.io', () => {
-  it('leads with the Z/LLS wordmark and the line naming Joshua, with no header', () => {
+  it('leads with the Z/LLS wordmark and its line, with no header and no personal name', () => {
     expect(html).toMatch(/<h1[^>]*>Z<span[^>]*>\/<\/span>LLS<\/h1>/)
-    expect(text).toContain('Software, audio and visual work by Joshua Zillwood.')
+    expect(text).toContain('Somewhere between the signal and the noise.')
+    expect(text).not.toContain('Joshua')
     expect(html).not.toContain('<header')
   })
 
