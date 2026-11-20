@@ -30,7 +30,6 @@ export const panels: Panel[] = [
     title: 'Lab',
     description: 'Shaders, visuals & experiments',
     accent: '#a78bfa',
-    // Until lab.zills.io exists.
-    href: 'https://j.zills.io/lab/',
+    href: 'https://lab.zills.io/',
   },
 ]

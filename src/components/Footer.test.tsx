@@ -11,10 +11,9 @@ describe('Footer', () => {
 })
 
 describe('Footer text', () => {
-  it('credits Z/LLS and links to the resume as "Me"', () => {
+  it('puts the resume link beside the mark, by its domain, with the copyright under them', () => {
     const text = renderToString(<Footer />).replace(/<[^>]+>/g, '')
-    expect(text).toContain('© 2026 Z/LLS')
-    expect(text).toMatch(/Me\s*↗/)
-    expect(text).not.toContain('j.zills.io')
+    expect(text).toMatch(/^Z\/LLSj\.zills\.io ↗© \d{4} Joshua Zillwood$/)
+    expect(text).not.toMatch(/\bMe\b/)
   })
 })
