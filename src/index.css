@@ -25,6 +25,13 @@
   color-scheme: dark;
 }
 
+/* In-page links (the hero's scroll cue) glide, unless the visitor prefers less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Tailwind v4 leaves buttons with the arrow cursor; controls get the hand. */
 button:not(:disabled) {
   cursor: pointer;

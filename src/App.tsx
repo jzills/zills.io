@@ -13,10 +13,18 @@ export default function App() {
         {/* No header: the wordmark is the first thing on the page. */}
         <section className="hero-glow flex min-h-[88svh] flex-col items-center justify-center px-5 py-16 text-center">
           <Logo />
-          <p className="mt-5 text-lg text-zinc-400 sm:text-xl">Somewhere between the signal and the noise.</p>
-          <p aria-hidden="true" className="mt-12 font-mono text-[11px] tracking-[0.16em] text-muted">
-            SCROLL ↓
+          {/* Breaks after "between" on small screens, so no word is left alone on a line. */}
+          <p className="mt-5 text-lg text-zinc-400 sm:text-xl">
+            Somewhere between<br className="sm:hidden" /> the signal and the noise.
           </p>
+          {/* A plain link to the first band: works without JavaScript; smooth unless motion is reduced (index.css). */}
+          <a
+            href={`#${panels[0].id}`}
+            aria-label={`Scroll to ${panels[0].title}`}
+            className="group mt-12 inline-flex items-center gap-2 px-3 py-2 font-mono text-[11px] tracking-[0.16em] text-muted transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg/60"
+          >
+            SCROLL <span aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">↓</span>
+          </a>
         </section>
         {panels.map((p, i) => {
           const Preview = previews[p.id]
