@@ -17,3 +17,9 @@ describe('Footer text', () => {
     expect(text).not.toMatch(/\bMe\b/)
   })
 })
+
+describe('Footer mark', () => {
+  it('links the Z/LLS mark to zills.io', () => {
+    expect(renderToString(<Footer />)).toMatch(/<a[^>]*href="https:\/\/zills\.io\/"[^>]*>Z<span[^>]*>\/<\/span>LLS<\/a>/)
+  })
+})
