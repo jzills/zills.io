@@ -4,7 +4,7 @@ import { ABOUT_URL } from '@/data/panels'
 // (on the hub, the resume), with the copyright under them.
 export function Footer() {
   return (
-    <footer className="relative z-20 px-6 py-4 font-mono text-[11px] text-muted shards:absolute shards:inset-x-0 shards:bottom-0">
+    <footer className="relative z-20 px-6 py-6 font-mono text-[11px] text-muted shards:absolute shards:inset-x-0 shards:bottom-0">
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2.5">
           <span className="font-sans text-sm font-extrabold tracking-[-0.03em] text-fg">
