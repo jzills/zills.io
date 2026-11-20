@@ -13,7 +13,7 @@ export default function App() {
         {/* No header: the wordmark is the first thing on the page. */}
         <section className="hero-glow flex min-h-[88svh] flex-col items-center justify-center px-5 py-16 text-center">
           <Logo />
-          <p className="mt-5 text-lg text-zinc-400 sm:text-xl">Software, audio and visual work by Joshua Zillwood.</p>
+          <p className="mt-5 text-lg text-zinc-400 sm:text-xl">Somewhere between the signal and the noise.</p>
           <p aria-hidden="true" className="mt-12 font-mono text-[11px] tracking-[0.16em] text-muted">
             SCROLL ↓
           </p>
