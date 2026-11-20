@@ -11,10 +11,11 @@ describe('Footer', () => {
 })
 
 describe('Footer text', () => {
-  it('is just the mark and the resume link, by its domain, with no copyright line', () => {
-    const text = renderToString(<Footer />).replace(/<[^>]+>/g, '')
-    expect(text).toMatch(/^Z\/LLSj\.zills\.io ↗$/)
-    expect(text).not.toMatch(/\bMe\b/)
+  // The hub's one exception to "mark | domain": its link is the person behind it, not the hub.
+  it('is just the mark and a "Me" link to the resume', () => {
+    const html = renderToString(<Footer />)
+    expect(html.replace(/<[^>]+>/g, '')).toMatch(/^Z\/LLSMe ↗$/)
+    expect(html).toMatch(/<a[^>]*href="https:\/\/j\.zills\.io\/"[^>]*>Me <span/)
   })
 })
 
