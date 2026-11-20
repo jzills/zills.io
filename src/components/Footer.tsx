@@ -1,7 +1,7 @@
 import { ABOUT_URL } from '@/data/panels'
 
-// Every zills site's footer: the Z/LLS mark with the copyright under it. The hub's
-// right-hand link goes to the resume rather than back to itself.
+// Every zills site's footer: the Z/LLS mark with the copyright under it, and a link
+// by domain on the right. The hub's goes to the resume rather than back to itself.
 export function Footer() {
   return (
     <footer className="relative z-20 flex items-center justify-between px-6 py-4 font-mono text-[11px] text-muted shards:absolute shards:inset-x-0 shards:bottom-0">
@@ -11,8 +11,8 @@ export function Footer() {
         </span>
         <span>© {__BUILD_YEAR__} Joshua Zillwood</span>
       </div>
-      <a href={ABOUT_URL} title="j.zills.io" className="transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-        Me <span aria-hidden="true">↗</span>
+      <a href={ABOUT_URL} className="transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+        j.zills.io <span aria-hidden="true">↗</span>
       </a>
     </footer>
   )
