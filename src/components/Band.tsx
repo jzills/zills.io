@@ -5,8 +5,9 @@ import type { Panel } from '@/data/panels'
 // screens, and the preview always gets the wider column; on phones it comes first.
 export function Band({ panel, flip, children }: { panel: Panel; flip: boolean; children: ReactNode }) {
   return (
-    <section data-band={panel.id} aria-labelledby={`band-${panel.id}`} className="rise border-t border-border" style={{ '--a': panel.accent } as CSSProperties}>
-      <div className={`mx-auto grid max-w-[1200px] items-center gap-8 px-5 py-14 sm:px-7 wide:gap-16 wide:py-20 ${flip ? 'wide:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]' : 'wide:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]'}`}>
+    <section id={panel.id} data-band={panel.id} aria-labelledby={`band-${panel.id}`} className="border-t border-border" style={{ '--a': panel.accent } as CSSProperties}>
+      {/* The contents rise in, not the section: the section is the scroll cue's target, so it never moves. */}
+      <div className={`rise mx-auto grid max-w-[1200px] items-center gap-8 px-5 py-14 sm:px-7 wide:gap-16 wide:py-20 ${flip ? 'wide:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]' : 'wide:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]'}`}>
         <div className={`cut-corner h-[290px] overflow-hidden sm:h-[340px] ${flip ? 'wide:order-2' : ''}`}>{children}</div>
         <div>
           <p className="font-mono text-[11px] tracking-[0.14em] text-(--a) uppercase">

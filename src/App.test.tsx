@@ -61,4 +61,9 @@ describe('zills.io', () => {
   it('never hides content in the prerendered HTML', () => {
     expect(html).not.toMatch(/opacity:\s*0/)
   })
+
+  it('makes the scroll cue a link down to the Lab band', () => {
+    expect(html).toMatch(/<a[^>]*href="#lab"[^>]*>[\s\S]*?Scroll[\s\S]*?↓[\s\S]*?<\/a>/i)
+    expect(bands[0]).toMatch(/^<section[^>]*id="lab"/)
+  })
 })
