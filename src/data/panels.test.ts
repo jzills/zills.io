@@ -25,7 +25,7 @@ describe('panels', () => {
   })
 
   it('links Open Source and Lab, and leaves Audio and Plugins unlinked', () => {
-    expect(byId('oss')?.href).toBe('https://github.com/jzills')
+    expect(byId('oss')?.href).toBe('https://oss.zills.io/')
     expect(byId('lab')?.href).toBe('https://lab.zills.io/')
     expect(byId('audio')?.href).toBeUndefined()
     expect(byId('plugins')?.href).toBeUndefined()

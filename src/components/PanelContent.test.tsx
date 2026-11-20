@@ -10,7 +10,7 @@ describe('PanelLink', () => {
   it('links when href present', () => {
     const html = renderToString(<PanelLink panel={oss} />)
     expect(html).toContain('<a')
-    expect(html).toContain('href="https://github.com/jzills"')
+    expect(html).toContain('href="https://oss.zills.io/"')
     expect(html).not.toContain('Coming soon')
   })
 
