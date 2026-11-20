@@ -19,8 +19,7 @@ export const panels: Panel[] = [
     title: 'Open Source',
     description: 'Libraries & tools for .NET, Go, Kubernetes',
     accent: '#22d3ee',
-    // Until oss.zills.io exists.
-    href: 'https://github.com/jzills',
+    href: 'https://oss.zills.io/',
   },
   { id: 'audio', label: '02 · AUDIO', title: 'Audio', description: 'Sound design & music', accent: '#fbbf24' },
   { id: 'plugins', label: '03 · PLUGINS', title: 'Plugins', description: 'Audio plugins & instruments', accent: '#fb923c' },
