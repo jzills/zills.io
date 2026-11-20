@@ -6,14 +6,13 @@
 
   --color-bg: #09090b;
   --color-surface: #111113;
-  --color-surface-alt: #0f0f11;
   --color-border: #27272a;
   --color-fg: #fafafa;
   --color-muted: #8b8b94;
   --color-accent: #22d3ee;
 
-  /* Below this the page shows the blades layout, at and above it the shards. */
-  --breakpoint-shards: 56.25rem;
+  /* Bands sit side by side from here up. */
+  --breakpoint-wide: 56.25rem;
 }
 
 /* Hover styles switch on while a mouse is in use, as detected by
@@ -26,6 +25,11 @@
   color-scheme: dark;
 }
 
+/* Tailwind v4 leaves buttons with the arrow cursor; controls get the hand. */
+button:not(:disabled) {
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   background: var(--color-bg);
@@ -34,106 +38,82 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Faint diagonal hairlines and a soft cyan glow at the top. */
+/* Faint diagonal hairlines across the page. */
 .texture::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
+  background: repeating-linear-gradient(-60deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 46px);
+}
+
+/* The hero: a faint glow behind the wordmark, picking up the family's colours. */
+.hero-glow {
   background:
-    radial-gradient(60% 50% at 70% 0%, rgb(34 211 238 / 0.1), transparent 70%),
-    repeating-linear-gradient(-60deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 46px);
+    radial-gradient(45% 40% at 50% 38%, rgb(167 139 250 / 0.08), transparent 70%),
+    radial-gradient(40% 35% at 62% 55%, rgb(34 211 238 / 0.05), transparent 70%);
 }
 
-/* Entrance: once, on load, from the prerendered HTML. `backwards` means a panel whose
-   animation never runs is simply visible. */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes panel-in {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-  }
-  .panel-in {
-    animation: panel-in 300ms ease-out backwards;
-    animation-delay: calc(var(--i, 0) * 40ms);
-  }
+/* Preview windows lose their bottom-right corner, as on the Lab. */
+.cut-corner {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
 
-/* Phone blades: slanted cards with a thin accent top edge. */
-.blade {
-  min-height: 190px;
-  padding: 22px 16% 18px 26px;
-  background: var(--color-surface);
-  border-top: 2px solid color-mix(in srgb, var(--a) 35%, transparent);
-  clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
-  transition: border-color 200ms;
+/* The code window scrolls sideways inside itself on narrow screens, without a bar. */
+.code-scroll {
+  scrollbar-width: none;
 }
-.blade > .panel-text {
-  display: flex;
-  flex-direction: column;
-  min-height: 150px;
-}
-.blade .panel-title {
-  margin-top: auto;
-  font-size: 19px;
-}
-.blade:is(a:hover, a:focus-visible) {
-  border-top-color: var(--a);
-}
-.blade-wash {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--a) 22%, transparent), transparent 70%);
-  opacity: 0;
-  transition: opacity 200ms;
-}
-a.blade:is(:hover, :focus-visible) .blade-wash {
-  opacity: 1;
-}
-
-/* Desktop shards: a faint corner glow in the site's accent, brighter on hover or focus. */
-.shard-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--glow-at), color-mix(in srgb, var(--a) 10%, transparent), transparent 55%);
-}
-.shard-glow-hot {
-  background: radial-gradient(circle at var(--glow-at), color-mix(in srgb, var(--a) 30%, transparent), transparent 65%);
-  opacity: 0;
-  transition: opacity 250ms;
-}
-a.shard:is(:hover, :focus-visible) .shard-glow-hot {
-  opacity: 1;
-}
-.shard-core {
-  background: radial-gradient(330px circle at 50.78% 49.38%, var(--color-surface-alt) 0%, rgb(15 15 17 / 0.9) 55%, transparent 100%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .blade,
-  .blade-wash,
-  .shard-glow-hot {
-    transition: none;
-  }
-}
-
-/* Desktop: a faint light that follows the cursor across a hovered shard. Only while a
-   mouse is in use (data-pointer, from public/pointer-init.js; tablets get no stuck glow)
-   and only when motion is welcome. --gx/--gy come from src/lib/useCursorGlow.ts. */
-.shard-cursor {
+.code-scroll::-webkit-scrollbar {
   display: none;
 }
-@media (prefers-reduced-motion: no-preference) {
-  :root[data-pointer="mouse"] .shard-cursor {
-    display: block;
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(240px circle at var(--gx, -999px) var(--gy, -999px), color-mix(in srgb, var(--a) 10%, transparent), transparent 100%);
-    opacity: 0;
-    transition: opacity 250ms;
+/* On phones a long line fades out at the window's edge rather than stopping dead. */
+@media (width < 40rem) {
+  .code-scroll {
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
   }
-  a.shard:hover .shard-cursor {
-    opacity: 1;
+}
+
+/* The Plugins faceplate's housing and knobs (as on plugins.zills.io). */
+.faceplate {
+  background: linear-gradient(180deg, #18181b, #111113);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04), 0 20px 40px -20px rgb(0 0 0 / 0.8);
+}
+.knob {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #3f3f46, #18181b 70%);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 0 4px var(--color-surface), 0 0 0 5px var(--color-border);
+}
+.knob::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  width: 2px;
+  height: 11px;
+  border-radius: 1px;
+  background: #fb923c;
+  transform-origin: 50% 15px;
+  transform: translateX(-50%) rotate(var(--a, 0deg));
+}
+
+/* Bands rise in as they scroll into view, driven by the scroll in CSS. Browsers without
+   scroll-driven animations simply show them, so nothing is ever hidden. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+    }
+    .rise {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
   }
 }
