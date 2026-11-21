@@ -21,6 +21,21 @@
     <meta name="twitter:image" content="https://zills.io/og-image.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      // Picks the hero's still before the first paint: one of two broken frames of the
+      // Lab's Banded Capsule, alternating between visits (see .hero-art in src/index.css).
+      (function () {
+        var n
+        try {
+          var last = localStorage.getItem('hero-art')
+          n = last ? (last === '1' ? '2' : '1') : Math.random() < 0.5 ? '1' : '2'
+          localStorage.setItem('hero-art', n)
+        } catch (e) {
+          n = Math.random() < 0.5 ? '1' : '2'
+        }
+        document.documentElement.dataset.hero = n
+      })()
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
   </head>
   <body>
