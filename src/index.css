@@ -56,14 +56,16 @@ body {
 
 /* The hero's art: a still of the Lab's Banded Capsule caught breaking apart on a real GPU.
    There are six frames; index.html picks one per visit (data-hero on <html>), taking turns.
-   The stills are transparent where empty (the black was turned into alpha, with the contrast
-   and colour baked in), so they sit on the page with no box, in every browser. */
+   Each was rendered at 4K on the GPU. The stills are transparent where empty (the black was
+   turned into alpha, with the contrast and colour baked in), so they sit on the page with no
+   box in every browser. */
 .hero-art {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: url("/hero/broken-1-1200.webp") no-repeat right -9rem bottom 2rem / auto 62%;
+  /* Phones get a crop of just the part they show, at 3x; see the [data-hero] rules below. */
+  background: url("/hero/broken-1-phone.webp") no-repeat left bottom 2rem / 100% auto;
   /* Clear around the wordmark, and fade out toward the bottom so the hero dissolves into the Lab band. */
   -webkit-mask-image:
     radial-gradient(ellipse min(30rem, 58vw) min(13rem, 20vh) at 50% 44%, transparent 35%, #000),
@@ -75,38 +77,57 @@ body {
   mask-composite: intersect;
 }
 [data-hero="2"] .hero-art {
-  background: url("/hero/broken-2-1200.webp") no-repeat center / cover;
+  background: url("/hero/broken-2-phone.webp") no-repeat center / cover;
 }
 [data-hero="3"] .hero-art {
-  background: url("/hero/broken-3-1200.webp") no-repeat center top / cover;
+  background: url("/hero/broken-3-phone.webp") no-repeat center top / cover;
 }
 [data-hero="4"] .hero-art {
-  background: url("/hero/broken-4-1200.webp") no-repeat right -22rem center / auto 100%;
+  background: url("/hero/broken-4-phone.webp") no-repeat center / cover;
 }
 [data-hero="5"] .hero-art {
-  background: url("/hero/broken-5-1200.webp") no-repeat center / cover;
+  background: url("/hero/broken-5-phone.webp") no-repeat center / cover;
 }
 [data-hero="6"] .hero-art {
-  background: url("/hero/broken-6-1200.webp") no-repeat center / cover;
+  background: url("/hero/broken-6-phone.webp") no-repeat center / cover;
 }
+/* Wider screens get the whole frame: 1920 wide, or 2880 on high-density screens. */
 @media (min-width: 40rem) {
   .hero-art {
-    background: url("/hero/broken-1-1920.webp") no-repeat right bottom / cover;
+    background: no-repeat right bottom / cover;
+    background-image: url("/hero/broken-1-1920.webp");
+    background-image: -webkit-image-set(url("/hero/broken-1-1920.webp") 1x, url("/hero/broken-1-2880.webp") 2x);
+    background-image: image-set(url("/hero/broken-1-1920.webp") 1x, url("/hero/broken-1-2880.webp") 2x);
   }
   [data-hero="2"] .hero-art {
-    background: url("/hero/broken-2-1920.webp") no-repeat center / cover;
+    background: no-repeat center / cover;
+    background-image: url("/hero/broken-2-1920.webp");
+    background-image: -webkit-image-set(url("/hero/broken-2-1920.webp") 1x, url("/hero/broken-2-2880.webp") 2x);
+    background-image: image-set(url("/hero/broken-2-1920.webp") 1x, url("/hero/broken-2-2880.webp") 2x);
   }
   [data-hero="3"] .hero-art {
-    background: url("/hero/broken-3-1920.webp") no-repeat center top / cover;
+    background: no-repeat center top / cover;
+    background-image: url("/hero/broken-3-1920.webp");
+    background-image: -webkit-image-set(url("/hero/broken-3-1920.webp") 1x, url("/hero/broken-3-2880.webp") 2x);
+    background-image: image-set(url("/hero/broken-3-1920.webp") 1x, url("/hero/broken-3-2880.webp") 2x);
   }
   [data-hero="4"] .hero-art {
-    background: url("/hero/broken-4-1920.webp") no-repeat center / cover;
+    background: no-repeat center / cover;
+    background-image: url("/hero/broken-4-1920.webp");
+    background-image: -webkit-image-set(url("/hero/broken-4-1920.webp") 1x, url("/hero/broken-4-2880.webp") 2x);
+    background-image: image-set(url("/hero/broken-4-1920.webp") 1x, url("/hero/broken-4-2880.webp") 2x);
   }
   [data-hero="5"] .hero-art {
-    background: url("/hero/broken-5-1920.webp") no-repeat center / cover;
+    background: no-repeat center / cover;
+    background-image: url("/hero/broken-5-1920.webp");
+    background-image: -webkit-image-set(url("/hero/broken-5-1920.webp") 1x, url("/hero/broken-5-2880.webp") 2x);
+    background-image: image-set(url("/hero/broken-5-1920.webp") 1x, url("/hero/broken-5-2880.webp") 2x);
   }
   [data-hero="6"] .hero-art {
-    background: url("/hero/broken-6-1920.webp") no-repeat center / cover;
+    background: no-repeat center / cover;
+    background-image: url("/hero/broken-6-1920.webp");
+    background-image: -webkit-image-set(url("/hero/broken-6-1920.webp") 1x, url("/hero/broken-6-2880.webp") 2x);
+    background-image: image-set(url("/hero/broken-6-1920.webp") 1x, url("/hero/broken-6-2880.webp") 2x);
   }
 }
 
