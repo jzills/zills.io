@@ -61,9 +61,8 @@ body {
     radial-gradient(40% 35% at 62% 55%, rgb(34 211 238 / 0.05), transparent 70%);
 }
 
-/* The hero's light (components/HeroLight.tsx). This CSS is the still fallback, used without
-   WebGL or with reduced motion: a wide, faint glow behind the wordmark that lifts a fine
-   grain and the page's hairlines out of the dark. */
+/* The hero's light: a wide, faint glow behind the wordmark that lifts a fine grain and
+   the page's hairlines out of the dark. */
 .hero-light {
   --lx: 50%;
   --ly: 44%;
@@ -85,18 +84,39 @@ body {
   opacity: 0.3;
   mask-image: radial-gradient(circle min(48rem, 100vw) at var(--lx) var(--ly), #000, transparent 75%);
 }
-/* With WebGL the shader draws all of it (glow, grain and beads), so the CSS layers step aside. */
-.hero-gl {
+/* The hero's art: a still of the Lab's Banded Capsule caught breaking apart on a real GPU.
+   There are two frames; index.html picks one per visit (data-hero on <html>), alternating.
+   The stills are black where empty, so screen-blending drops the black into the page, which
+   is why the hero section isn't isolated. */
+.hero-art {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/hero/broken-1-1200.webp") no-repeat right -9rem bottom 2rem / auto 62%;
+  opacity: 0.5;
+  filter: saturate(0.6);
+  mix-blend-mode: screen;
+  /* Clear around the wordmark, and fade out toward the bottom so the hero dissolves into the Lab band. */
+  -webkit-mask-image:
+    radial-gradient(ellipse min(30rem, 58vw) min(13rem, 20vh) at 50% 44%, transparent 35%, #000),
+    linear-gradient(to bottom, #000 55%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse min(30rem, 58vw) min(13rem, 20vh) at 50% 44%, transparent 35%, #000),
+    linear-gradient(to bottom, #000 55%, transparent 98%);
+  mask-composite: intersect;
 }
-.hero-light.is-gl {
-  background: none;
+[data-hero="2"] .hero-art {
+  background: url("/hero/broken-2-1200.webp") no-repeat center / cover;
 }
-.hero-light.is-gl::after {
-  display: none;
+@media (min-width: 40rem) {
+  .hero-art {
+    background: url("/hero/broken-1-1920.webp") no-repeat right bottom / cover;
+  }
+  [data-hero="2"] .hero-art {
+    background: url("/hero/broken-2-1920.webp") no-repeat center / cover;
+  }
 }
 
 /* Preview windows lose their bottom-right corner, as on the Lab. */
