@@ -57,12 +57,12 @@ body {
 /* The hero: a faint glow behind the wordmark, picking up the family's colours. */
 .hero-glow {
   background:
-    radial-gradient(45% 40% at 50% 38%, rgb(167 139 250 / 0.08), transparent 70%),
-    radial-gradient(40% 35% at 62% 55%, rgb(34 211 238 / 0.05), transparent 70%);
+    radial-gradient(45% 40% at 50% 38%, rgb(167 139 250 / 0.05), transparent 70%),
+    radial-gradient(40% 35% at 62% 55%, rgb(34 211 238 / 0.03), transparent 70%);
 }
 
-/* The hero's light: a wide, faint glow behind the wordmark that lifts a fine grain and
-   the page's hairlines out of the dark. */
+/* The hero's light: a faint violet glow behind the wordmark that lifts a fine grain and
+   the page's hairlines out of the dark. Kept low so the hero's black matches the bands below. */
 .hero-light {
   --lx: 50%;
   --ly: 44%;
@@ -70,16 +70,14 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(circle min(56rem, 120vw) at var(--lx) var(--ly), rgb(255 255 255 / 0.03), transparent 72%),
-    radial-gradient(circle min(30rem, 70vw) at var(--lx) var(--ly), rgb(196 181 253 / 0.02), transparent 72%);
+  background: radial-gradient(circle min(30rem, 70vw) at var(--lx) var(--ly), rgb(196 181 253 / 0.02), transparent 72%);
 }
 .hero-light::after {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
     repeating-linear-gradient(-60deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 46px);
   opacity: 0.3;
   mask-image: radial-gradient(circle min(48rem, 100vw) at var(--lx) var(--ly), #000, transparent 75%);
@@ -94,8 +92,8 @@ body {
   z-index: -1;
   pointer-events: none;
   background: url("/hero/broken-1-1200.webp") no-repeat right -9rem bottom 2rem / auto 62%;
-  opacity: 0.5;
-  filter: saturate(0.6);
+  opacity: 0.8;
+  filter: saturate(0.9);
   mix-blend-mode: screen;
   /* Clear around the wordmark, and fade out toward the bottom so the hero dissolves into the Lab band. */
   -webkit-mask-image:
