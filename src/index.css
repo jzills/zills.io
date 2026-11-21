@@ -55,7 +55,7 @@ body {
 }
 
 /* The hero's art: a still of the Lab's Banded Capsule caught breaking apart on a real GPU.
-   There are six frames; index.html picks one per visit (data-hero on <html>), taking turns.
+   There are five frames; index.html picks one per visit (data-hero on <html>), taking turns.
    Each was rendered at 4K on the GPU. The stills are transparent where empty (the black was
    turned into alpha, with the contrast and colour baked in), so they sit on the page with no
    box in every browser. */
@@ -88,9 +88,6 @@ body {
 [data-hero="5"] .hero-art {
   background: url("/hero/broken-5-phone.webp") no-repeat center / cover;
 }
-[data-hero="6"] .hero-art {
-  background: url("/hero/broken-6-phone.webp") no-repeat center / cover;
-}
 /* Wider screens get the whole frame: 1920 wide, or 2880 on high-density screens. */
 @media (min-width: 40rem) {
   .hero-art {
@@ -122,12 +119,6 @@ body {
     background-image: url("/hero/broken-5-1920.webp");
     background-image: -webkit-image-set(url("/hero/broken-5-1920.webp") 1x, url("/hero/broken-5-2880.webp") 2x);
     background-image: image-set(url("/hero/broken-5-1920.webp") 1x, url("/hero/broken-5-2880.webp") 2x);
-  }
-  [data-hero="6"] .hero-art {
-    background: no-repeat center / cover;
-    background-image: url("/hero/broken-6-1920.webp");
-    background-image: -webkit-image-set(url("/hero/broken-6-1920.webp") 1x, url("/hero/broken-6-2880.webp") 2x);
-    background-image: image-set(url("/hero/broken-6-1920.webp") 1x, url("/hero/broken-6-2880.webp") 2x);
   }
 }
 
