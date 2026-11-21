@@ -22,10 +22,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script>
-      // Picks the hero's still before the first paint: one of four broken frames of the
+      // Picks the hero's still before the first paint: one of six broken frames of the
       // Lab's Banded Capsule, taking turns between visits (see .hero-art in src/index.css).
       (function () {
-        var count = 4
+        var count = 6
         var n = 1 + Math.floor(Math.random() * count)
         try {
           var last = parseInt(localStorage.getItem('hero-art'), 10)
