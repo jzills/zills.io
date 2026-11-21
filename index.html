@@ -22,18 +22,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script>
-      // Picks the hero's still before the first paint: one of two broken frames of the
-      // Lab's Banded Capsule, alternating between visits (see .hero-art in src/index.css).
+      // Picks the hero's still before the first paint: one of four broken frames of the
+      // Lab's Banded Capsule, taking turns between visits (see .hero-art in src/index.css).
       (function () {
-        var n
+        var count = 4
+        var n = 1 + Math.floor(Math.random() * count)
         try {
-          var last = localStorage.getItem('hero-art')
-          n = last ? (last === '1' ? '2' : '1') : Math.random() < 0.5 ? '1' : '2'
-          localStorage.setItem('hero-art', n)
-        } catch (e) {
-          n = Math.random() < 0.5 ? '1' : '2'
-        }
-        document.documentElement.dataset.hero = n
+          var last = parseInt(localStorage.getItem('hero-art'), 10)
+          if (last >= 1 && last <= count) n = (last % count) + 1
+          localStorage.setItem('hero-art', String(n))
+        } catch (e) {}
+        document.documentElement.dataset.hero = String(n)
       })()
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
