@@ -83,7 +83,7 @@ body {
   mask-image: radial-gradient(circle min(48rem, 100vw) at var(--lx) var(--ly), #000, transparent 75%);
 }
 /* The hero's art: a still of the Lab's Banded Capsule caught breaking apart on a real GPU.
-   There are two frames; index.html picks one per visit (data-hero on <html>), alternating.
+   There are six frames; index.html picks one per visit (data-hero on <html>), taking turns.
    The stills are black where empty, so screen-blending drops the black into the page, which
    is why the hero section isn't isolated. */
 .hero-art {
@@ -108,12 +108,36 @@ body {
 [data-hero="2"] .hero-art {
   background: url("/hero/broken-2-1200.webp") no-repeat center / cover;
 }
+[data-hero="3"] .hero-art {
+  background: url("/hero/broken-3-1200.webp") no-repeat center top / cover;
+}
+[data-hero="4"] .hero-art {
+  background: url("/hero/broken-4-1200.webp") no-repeat right -22rem center / auto 100%;
+}
+[data-hero="5"] .hero-art {
+  background: url("/hero/broken-5-1200.webp") no-repeat center / cover;
+}
+[data-hero="6"] .hero-art {
+  background: url("/hero/broken-6-1200.webp") no-repeat center / cover;
+}
 @media (min-width: 40rem) {
   .hero-art {
     background: url("/hero/broken-1-1920.webp") no-repeat right bottom / cover;
   }
   [data-hero="2"] .hero-art {
     background: url("/hero/broken-2-1920.webp") no-repeat center / cover;
+  }
+  [data-hero="3"] .hero-art {
+    background: url("/hero/broken-3-1920.webp") no-repeat center top / cover;
+  }
+  [data-hero="4"] .hero-art {
+    background: url("/hero/broken-4-1920.webp") no-repeat center / cover;
+  }
+  [data-hero="5"] .hero-art {
+    background: url("/hero/broken-5-1920.webp") no-repeat center / cover;
+  }
+  [data-hero="6"] .hero-art {
+    background: url("/hero/broken-6-1920.webp") no-repeat center / cover;
   }
 }
 
